@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SyncDocs</string>
+    <string name="server_address">Адрес сервера</string>
+    <string name="database">База данных</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="enter">Войти</string>
 </resources>

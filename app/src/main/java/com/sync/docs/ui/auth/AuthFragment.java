@@ -1,5 +1,6 @@
 package com.sync.docs.ui.auth;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,15 +15,22 @@ import com.sync.docs.R;
 import com.sync.docs.databinding.FragmentAuthBinding;
 
 public class AuthFragment extends Fragment {
+    public static final String TAG = "AuthFragment";
+    private FragmentAuthBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        FragmentAuthBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_auth, container, false);
 
-
+        initViewModel();
 
         return binding.getRoot();
+    }
+
+    private void initViewModel() {
+        AuthFragmentViewModel viewModel = ViewModelProviders.of(this).get(AuthFragmentViewModel.class);
+        binding.setViewModel(viewModel);
     }
 
     public static AuthFragment newInstance() {
