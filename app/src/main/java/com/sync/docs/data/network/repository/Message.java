@@ -5,9 +5,9 @@ import android.arch.lifecycle.MutableLiveData;
 import com.sync.docs.data.network.model.message.Databases;
 
 public interface Message {
-    void createMessage(String url, String requestId);
+    void createMessage(String baseUrl);
 
-    void readMessage(String fullUrl, String requestId);
+    void readMessage(String baseUrl);
 
     MutableLiveData<Databases> getDatabases();
 

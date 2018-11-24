@@ -10,19 +10,15 @@ import com.sync.docs.data.network.model.message.Databases;
 import com.sync.docs.data.network.repository.AuthMessage;
 import com.sync.docs.data.network.repository.Message;
 
-import java.util.UUID;
-
 public class AuthFragmentViewModel extends ViewModel {
     private static final String TAG = "AuthFragmentViewModel";
     private Message messageRepository;
     private AuthMessage authMessageRepository;
-    private String requestId;
     private String baserUrl;
 
     void init(Message messageRepository, AuthMessage authMessage) {
         this.messageRepository = messageRepository;
         this.authMessageRepository = authMessage;
-        requestId = UUID.randomUUID().toString();
     }
 
     public void onUpdateServerAddress(View view, boolean hasFocus) {
@@ -30,15 +26,16 @@ public class AuthFragmentViewModel extends ViewModel {
             baserUrl = ((EditText) view).getText().toString();
             // TODO: 11/24/18 only for debug. remove hardcoded url
             baserUrl = "http://almaz2.digdes.com";
-            createMessage(baserUrl);
+            createMessage();
         }
     }
 
-    private void createMessage(String baserUrl) {
-        messageRepository.createMessage(baserUrl, requestId);
+    private void createMessage() {
+        messageRepository.createMessage(baserUrl);
     }
 
     public void onClickEnter(AuthRequest authRequest) {
+        // TODO: 11/24/18 check base url
         authMessageRepository.createAuthMessage(baserUrl, authRequest);
     }
 

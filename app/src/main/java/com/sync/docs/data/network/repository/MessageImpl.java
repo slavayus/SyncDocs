@@ -9,6 +9,7 @@ import com.sync.docs.data.network.model.message.Databases;
 import com.sync.docs.data.network.model.message.GetMessageRequestModel;
 import com.sync.docs.data.network.model.message.PostMessage;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
@@ -21,12 +22,17 @@ public class MessageImpl implements Message {
     private static final String GET_MESSAGE_END = "/syncwebservice/api/SyncMessage/GetMessages/";
     private static final String DV_DATABASE_REQUEST = "Dv.DatabasesRequest";
     private static final String TAG = "MessageImpl";
+    private final String requestId;
     private Disposable postMessageDisposable;
     private Disposable readMessageDisposable;
     private MutableLiveData<Databases> databasesLiveData = new MutableLiveData<>();
 
+    public MessageImpl() {
+        requestId = UUID.randomUUID().toString();
+    }
+
     @Override
-    public void createMessage(String baseUrl, String requestId) {
+    public void createMessage(String baseUrl) {
         disposeReadMessage();
         PostMessage postMessage = new PostMessage(DV_DATABASE_REQUEST, requestId);
         String fullUrl = baseUrl + POST_MESSAGE_END;
@@ -34,11 +40,11 @@ public class MessageImpl implements Message {
                 .postMessage(fullUrl, postMessage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> readMessage(baseUrl, requestId));
+                .subscribe(() -> readMessage(baseUrl));
     }
 
     @Override
-    public void readMessage(String baseUrl, String requestId) {
+    public void readMessage(String baseUrl) {
         String fullUrl = baseUrl + GET_MESSAGE_END;
         GetMessageRequestModel requestModel = new GetMessageRequestModel(requestId);
         readMessageDisposable = App.getApi()
