@@ -5,8 +5,8 @@ import android.arch.lifecycle.ViewModel;
 import android.view.View;
 import android.widget.EditText;
 
-import com.sync.docs.data.network.model.Databases;
 import com.sync.docs.data.network.model.auth.AuthRequest;
+import com.sync.docs.data.network.model.message.Databases;
 import com.sync.docs.data.network.repository.AuthMessage;
 import com.sync.docs.data.network.repository.Message;
 

@@ -1,9 +1,9 @@
 package com.sync.docs.data.network;
 
-import com.sync.docs.data.network.model.GetMessage;
-import com.sync.docs.data.network.model.GetMessageRequestModel;
-import com.sync.docs.data.network.model.PostMessage;
 import com.sync.docs.data.network.model.auth.PostAuthMessage;
+import com.sync.docs.data.network.model.message.GetMessage;
+import com.sync.docs.data.network.model.message.GetMessageRequestModel;
+import com.sync.docs.data.network.model.message.PostMessage;
 
 import java.util.List;
 

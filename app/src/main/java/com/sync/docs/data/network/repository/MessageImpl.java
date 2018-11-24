@@ -5,9 +5,9 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.sync.docs.App;
-import com.sync.docs.data.network.model.Databases;
-import com.sync.docs.data.network.model.GetMessageRequestModel;
-import com.sync.docs.data.network.model.PostMessage;
+import com.sync.docs.data.network.model.message.Databases;
+import com.sync.docs.data.network.model.message.GetMessageRequestModel;
+import com.sync.docs.data.network.model.message.PostMessage;
 
 import java.util.concurrent.TimeUnit;
 
