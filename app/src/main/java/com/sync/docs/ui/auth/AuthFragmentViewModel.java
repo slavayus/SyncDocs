@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 import android.view.View;
 
+import com.sync.docs.data.network.model.AuthRequest;
 import com.sync.docs.data.network.model.Databases;
 import com.sync.docs.data.network.repository.Message;
 
@@ -30,6 +31,10 @@ public class AuthFragmentViewModel extends ViewModel {
     private void createMessage() {
         // TODO: 11/24/18 only for debug. remove hardcoded url
         messageRepository.createMessage("http://almaz2.digdes.com", requestId);
+    }
+
+    public void onClickEnter(AuthRequest authRequest) {
+        Log.d(TAG, "onClickEnter: " + authRequest);
     }
 
     MutableLiveData<Databases> getDatabases() {
