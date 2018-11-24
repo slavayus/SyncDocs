@@ -14,7 +14,7 @@ public class GetMessage {
     @SerializedName("SessionToken")
     private String sessionToken;
     @SerializedName("Message")
-    private Databases message;
+    private String message;
 
     public String getId() {
         return id;
@@ -56,11 +56,23 @@ public class GetMessage {
         this.sessionToken = sessionToken;
     }
 
-    public Databases getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(Databases message) {
+    public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "GetMessage{" +
+                "id='" + id + '\'' +
+                ", requestId='" + requestId + '\'' +
+                ", messageType='" + messageType + '\'' +
+                ", settingsHash=" + settingsHash +
+                ", sessionToken='" + sessionToken + '\'' +
+                ", message='" + message + '\'' +
+                '}';
     }
 }

@@ -33,4 +33,13 @@ public class Database {
     public void setDefault(boolean aDefault) {
         isDefault = aDefault;
     }
+
+    @Override
+    public String toString() {
+        return "Database{" +
+                "databaseId='" + databaseId + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", isDefault=" + isDefault +
+                '}';
+    }
 }

@@ -15,4 +15,11 @@ public class Databases {
     public void setDatabases(List<Database> databases) {
         this.databases = databases;
     }
+
+    @Override
+    public String toString() {
+        return "Databases{" +
+                "databases=" + databases +
+                '}';
+    }
 }
