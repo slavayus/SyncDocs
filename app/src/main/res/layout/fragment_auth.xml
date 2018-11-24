@@ -9,7 +9,7 @@
 
         <variable
             name="authRequest"
-            type="com.sync.docs.data.network.model.AuthRequest" />
+            type="com.sync.docs.data.network.model.auth.AuthRequest" />
     </data>
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

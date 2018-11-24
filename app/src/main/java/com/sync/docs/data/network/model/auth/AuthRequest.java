@@ -1,4 +1,4 @@
-package com.sync.docs.data.network.model;
+package com.sync.docs.data.network.model.auth;
 
 import com.google.gson.annotations.SerializedName;
 

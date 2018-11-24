@@ -3,6 +3,7 @@ package com.sync.docs.data.network;
 import com.sync.docs.data.network.model.GetMessage;
 import com.sync.docs.data.network.model.GetMessageRequestModel;
 import com.sync.docs.data.network.model.PostMessage;
+import com.sync.docs.data.network.model.auth.PostAuthMessage;
 
 import java.util.List;
 
@@ -13,10 +14,12 @@ import retrofit2.http.POST;
 import retrofit2.http.Url;
 
 public interface ApiEndpoint {
-
     @POST
     Completable postMessage(@Url String url, @Body PostMessage postMessage);
 
     @POST
     Single<List<GetMessage>> getMessage(@Url String url, @Body GetMessageRequestModel requestId);
+
+    @POST
+    Completable postAuthMessage(@Url String url, @Body PostAuthMessage postAuthMessage);
 }
