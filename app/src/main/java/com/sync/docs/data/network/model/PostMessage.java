@@ -4,6 +4,14 @@ public class PostMessage {
     private String messageType;
     private String requestId;
 
+    public PostMessage(String messageType, String requestId) {
+        this.messageType = messageType;
+        this.requestId = requestId;
+    }
+
+    public PostMessage() {
+    }
+
     public String getMessageType() {
         return messageType;
     }

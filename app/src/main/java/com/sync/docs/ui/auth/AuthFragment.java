@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sync.docs.R;
+import com.sync.docs.data.network.repository.MessageImpl;
 import com.sync.docs.databinding.FragmentAuthBinding;
 
 public class AuthFragment extends Fragment {
@@ -30,6 +31,7 @@ public class AuthFragment extends Fragment {
 
     private void initViewModel() {
         AuthFragmentViewModel viewModel = ViewModelProviders.of(this).get(AuthFragmentViewModel.class);
+        viewModel.init(new MessageImpl());
         binding.setViewModel(viewModel);
     }
 
