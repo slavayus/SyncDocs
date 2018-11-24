@@ -68,7 +68,7 @@ public class MessageImpl implements Message {
 
     @Override
     public void onClear() {
-        if (!postMessageDisposable.isDisposed()) {
+        if (postMessageDisposable != null && !postMessageDisposable.isDisposed()) {
             postMessageDisposable.dispose();
         }
         disposeReadMessage();
