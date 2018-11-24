@@ -1,9 +1,11 @@
 package com.sync.docs.ui.auth;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 import android.view.View;
 
+import com.sync.docs.data.network.model.Databases;
 import com.sync.docs.data.network.repository.Message;
 
 import java.util.UUID;
@@ -28,6 +30,10 @@ public class AuthFragmentViewModel extends ViewModel {
     private void createMessage() {
         // TODO: 11/24/18 only for debug. remove hardcoded url
         messageRepository.createMessage("http://almaz2.digdes.com", requestId);
+    }
+
+    MutableLiveData<Databases> getDatabases() {
+        return messageRepository.getDatabases();
     }
 
     @Override

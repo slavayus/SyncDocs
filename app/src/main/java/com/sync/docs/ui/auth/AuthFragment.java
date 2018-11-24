@@ -33,6 +33,15 @@ public class AuthFragment extends Fragment {
         AuthFragmentViewModel viewModel = ViewModelProviders.of(this).get(AuthFragmentViewModel.class);
         viewModel.init(new MessageImpl());
         binding.setViewModel(viewModel);
+        initObservables(viewModel);
+    }
+
+    private void initObservables(AuthFragmentViewModel viewModel) {
+        viewModel.getDatabases().observe(this, databases -> {
+            if (databases != null) {
+                binding.databaseEditText.setText(databases.getDatabases().get(0).getDisplayName());
+            }
+        });
     }
 
     public static AuthFragment newInstance() {

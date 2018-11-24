@@ -1,5 +1,6 @@
 package com.sync.docs.data.network.repository;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -22,6 +23,7 @@ public class MessageImpl implements Message {
     private static final String TAG = "MessageImpl";
     private Disposable postMessageDisposable;
     private Disposable readMessageDisposable;
+    private MutableLiveData<Databases> databasesLiveData = new MutableLiveData<>();
 
     @Override
     public void createMessage(String baseUrl, String requestId) {
@@ -53,10 +55,15 @@ public class MessageImpl implements Message {
                 .subscribe(getMessage -> {
                     String message = getMessage.get(0).getMessage();
                     Databases databases = new Gson().fromJson(message, Databases.class);
-                    Log.d(TAG, "readMessage: " + databases);
+                    databasesLiveData.setValue(databases);
                 }, throwable -> {
                     Log.d(TAG, "readMessage: " + throwable);
                 });
+    }
+
+    @Override
+    public MutableLiveData<Databases> getDatabases() {
+        return databasesLiveData;
     }
 
     @Override
