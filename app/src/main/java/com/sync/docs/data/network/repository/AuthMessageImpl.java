@@ -38,9 +38,7 @@ public class AuthMessageImpl implements AuthMessage {
                 .postAuthMessage(fullUrl, postAuthMessage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> readAuthMessage(baseUrl, requestId), throwable -> {
-                    Log.d(TAG, "createAuthMessage: ");
-                });
+                .subscribe(() -> readAuthMessage(baseUrl, requestId), throwable -> Log.d(TAG, "createAuthMessage: "));
 
     }
 
@@ -54,7 +52,6 @@ public class AuthMessageImpl implements AuthMessage {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .repeatWhen(message -> message.flatMap(size -> {
-                    Log.d(TAG, "readAuthMessage: " + size);
                     if (!atomicBoolean.get()) {
                         return Flowable.just(this).delay(500, TimeUnit.MILLISECONDS);
                     } else {
@@ -69,9 +66,7 @@ public class AuthMessageImpl implements AuthMessage {
                     String message = getMessage.get(getMessage.size() - 1).getMessage();
                     AuthResponse authResponse = new Gson().fromJson(message, AuthResponse.class);
                     authMessageLiveData.setValue(authResponse.getMessage());
-                }, throwable -> {
-                    Log.d(TAG, "readMessage: " + throwable);
-                });
+                }, throwable -> Log.d(TAG, "readMessage: " + throwable));
     }
 
     @Override

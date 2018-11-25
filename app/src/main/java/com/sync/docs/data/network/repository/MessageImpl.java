@@ -11,6 +11,7 @@ import com.sync.docs.data.network.model.message.PostMessage;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -41,13 +42,12 @@ public class MessageImpl implements Message {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> readMessage(baseUrl),
-                        throwable -> {
-                            Log.d(TAG, "createMessage: ");
-                        });
+                        throwable -> Log.d(TAG, "createMessage: "));
     }
 
     @Override
     public void readMessage(String baseUrl) {
+        AtomicBoolean atomicBoolean = new AtomicBoolean(false);
         String fullUrl = baseUrl + GET_MESSAGE_END;
         GetMessageRequestModel requestModel = new GetMessageRequestModel(requestId);
         readMessageDisposable = App.getApi()
@@ -55,19 +55,21 @@ public class MessageImpl implements Message {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .repeatWhen(message -> message.flatMap(size -> {
-                    if ((int) size == 0) {
-                        return Flowable.empty().delay(3000, TimeUnit.MILLISECONDS);
+                    if (!atomicBoolean.get()) {
+                        return Flowable.just(this).delay(500, TimeUnit.MILLISECONDS);
                     } else {
-                        return message;
+                        return Flowable.empty();
                     }
                 }))
                 .subscribe(getMessage -> {
+                    if (getMessage.size() == 0) {
+                        return;
+                    }
+                    atomicBoolean.set(true);
                     String message = getMessage.get(0).getMessage();
                     Databases databases = new Gson().fromJson(message, Databases.class);
                     databasesLiveData.setValue(databases);
-                }, throwable -> {
-                    Log.d(TAG, "readMessage: " + throwable);
-                });
+                }, throwable -> Log.d(TAG, "readMessage: " + throwable));
     }
 
     @Override
