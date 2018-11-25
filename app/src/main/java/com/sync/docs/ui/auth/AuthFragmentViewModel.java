@@ -32,6 +32,7 @@ public class AuthFragmentViewModel extends ViewModel {
     private void createMessage() {
         if (validBaseUrl()) {
             messageRepository.createMessage(baserUrl);
+            authMessageRepository.onClear();
         }
     }
 

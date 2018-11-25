@@ -9,6 +9,7 @@ import com.sync.docs.data.network.model.message.Databases;
 import com.sync.docs.data.network.model.message.GetMessageRequestModel;
 import com.sync.docs.data.network.model.message.PostMessage;
 
+import java.util.ArrayList;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -34,6 +35,7 @@ public class MessageImpl implements Message {
 
     @Override
     public void createMessage(String baseUrl) {
+        databasesLiveData.setValue(new Databases(new ArrayList<>()));
         disposeReadMessage();
         PostMessage postMessage = new PostMessage(DV_DATABASE_REQUEST, requestId);
         String fullUrl = baseUrl + POST_MESSAGE_END;
@@ -42,7 +44,10 @@ public class MessageImpl implements Message {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> readMessage(baseUrl),
-                        throwable -> Log.d(TAG, "createMessage: "));
+                        throwable -> {
+                            databasesLiveData.setValue(new Databases(new ArrayList<>()));
+                            Log.d(TAG, "createMessage: ");
+                        });
     }
 
     @Override
@@ -69,7 +74,10 @@ public class MessageImpl implements Message {
                     String message = getMessage.get(0).getMessage();
                     Databases databases = new Gson().fromJson(message, Databases.class);
                     databasesLiveData.setValue(databases);
-                }, throwable -> Log.d(TAG, "readMessage: " + throwable));
+                }, throwable -> {
+                    databasesLiveData.setValue(new Databases(new ArrayList<>()));
+                    Log.d(TAG, "readMessage: " + throwable);
+                });
     }
 
     @Override

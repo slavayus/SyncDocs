@@ -68,9 +68,9 @@ public class AuthFragment extends Fragment {
 
     private void initObservables(AuthFragmentViewModel viewModel) {
         viewModel.getDatabases().observe(this, databases -> {
-            if (databases != null) {
+            if (databases != null && databases.getDatabases() != null) {
+                authRequest.setTenantId(databases.getDatabases().size() == 0 ? "" : databases.getDatabases().get(0).getDatabaseId());
                 databaseAdapter.setDatabases(databases.getDatabases());
-                authRequest.setTenantId(databases.getDatabases().get(0).getDatabaseId());
             }
         });
         viewModel.getAuthMessages().observe(this, message -> {
