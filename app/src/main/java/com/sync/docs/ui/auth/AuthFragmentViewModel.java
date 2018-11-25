@@ -2,6 +2,7 @@ package com.sync.docs.ui.auth;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.databinding.ObservableInt;
 import android.view.View;
 import android.widget.EditText;
 
@@ -12,6 +13,7 @@ import com.sync.docs.data.network.repository.Message;
 
 public class AuthFragmentViewModel extends ViewModel {
     private static final String TAG = "AuthFragmentViewModel";
+    private ObservableInt progressBarVisibility = new ObservableInt(View.GONE);
     private Message messageRepository;
     private AuthMessage authMessageRepository;
     private String baserUrl;
@@ -32,6 +34,7 @@ public class AuthFragmentViewModel extends ViewModel {
     private void createMessage() {
         if (validBaseUrl()) {
             messageRepository.createMessage(baserUrl);
+            progressBarVisibility.set(View.GONE);
             authMessageRepository.onClear();
         }
     }
@@ -42,6 +45,7 @@ public class AuthFragmentViewModel extends ViewModel {
 
     public void onClickEnter(AuthRequest authRequest) {
         if (validBaseUrl()) {
+            progressBarVisibility.set(View.VISIBLE);
             authMessageRepository.createAuthMessage(baserUrl, authRequest);
         }
     }
@@ -59,5 +63,9 @@ public class AuthFragmentViewModel extends ViewModel {
 
     MutableLiveData<String> getAuthMessages() {
         return authMessageRepository.getAuthMessage();
+    }
+
+    public ObservableInt getProgressBarVisibility() {
+        return progressBarVisibility;
     }
 }

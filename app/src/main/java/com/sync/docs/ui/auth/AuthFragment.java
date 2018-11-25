@@ -74,6 +74,7 @@ public class AuthFragment extends Fragment {
             }
         });
         viewModel.getAuthMessages().observe(this, message -> {
+            viewModel.getProgressBarVisibility().set(View.GONE);
             if (message == null) {
                 Toast.makeText(getContext(), R.string.authorization_was_successful, Toast.LENGTH_SHORT).show();
             } else {
