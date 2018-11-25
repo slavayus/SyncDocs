@@ -14,16 +14,20 @@
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_primarydark_primary">
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/server_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/large_padding"
+            app:layout_constraintBottom_toTopOf="@+id/database"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/server_address_edit_text"
@@ -42,18 +46,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/large_padding"
+            app:layout_constraintBottom_toTopOf="@+id/login"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/server_address" />
+            app:layout_constraintTop_toBottomOf="@+id/server_address" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/large_padding"
+            app:layout_constraintBottom_toTopOf="@+id/password"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/database">
+            app:layout_constraintTop_toBottomOf="@+id/database">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/login_edit_text"
@@ -70,9 +78,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/large_padding"
+            app:layout_constraintBottom_toTopOf="@+id/button4"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login">
+            app:layout_constraintTop_toBottomOf="@+id/login">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/password_edit_text"
@@ -86,13 +96,18 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
+            android:id="@+id/button4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/large_padding"
             android:onClick="@{()->viewModel.onClickEnter(authRequest)}"
+            android:background="@drawable/yellow_rounded_90dp"
             android:text="@string/enter"
+            android:textColor="@color/yellowDark"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/password" />
+            app:layout_constraintTop_toBottomOf="@+id/password" />
     </android.support.constraint.ConstraintLayout>
 </layout>
