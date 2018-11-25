@@ -38,7 +38,9 @@ public class AuthMessageImpl implements AuthMessage {
                 .postAuthMessage(fullUrl, postAuthMessage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> readAuthMessage(baseUrl, requestId));
+                .subscribe(() -> readAuthMessage(baseUrl, requestId), throwable -> {
+                    Log.d(TAG, "createAuthMessage: ");
+                });
 
     }
 

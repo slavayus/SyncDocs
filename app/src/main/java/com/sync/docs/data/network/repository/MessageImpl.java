@@ -40,7 +40,10 @@ public class MessageImpl implements Message {
                 .postMessage(fullUrl, postMessage)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> readMessage(baseUrl));
+                .subscribe(() -> readMessage(baseUrl),
+                        throwable -> {
+                            Log.d(TAG, "createMessage: ");
+                        });
     }
 
     @Override

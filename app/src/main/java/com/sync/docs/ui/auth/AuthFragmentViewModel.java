@@ -24,19 +24,25 @@ public class AuthFragmentViewModel extends ViewModel {
     public void onUpdateServerAddress(View view, boolean hasFocus) {
         if (!hasFocus) {
             baserUrl = ((EditText) view).getText().toString();
-            // TODO: 11/24/18 only for debug. remove hardcoded url
-            baserUrl = "http://almaz2.digdes.com";
+//            baserUrl = "http://almaz2.digdes.com";
             createMessage();
         }
     }
 
     private void createMessage() {
-        messageRepository.createMessage(baserUrl);
+        if (validBaseUrl()) {
+            messageRepository.createMessage(baserUrl);
+        }
+    }
+
+    private boolean validBaseUrl() {
+        return baserUrl != null && baserUrl.startsWith("http");
     }
 
     public void onClickEnter(AuthRequest authRequest) {
-        // TODO: 11/24/18 check base url
-        authMessageRepository.createAuthMessage(baserUrl, authRequest);
+        if (validBaseUrl()) {
+            authMessageRepository.createAuthMessage(baserUrl, authRequest);
+        }
     }
 
     MutableLiveData<Databases> getDatabases() {
