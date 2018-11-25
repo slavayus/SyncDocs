@@ -22,4 +22,7 @@ public interface ApiEndpoint {
 
     @POST
     Completable postAuthMessage(@Url String url, @Body PostAuthMessage postAuthMessage);
+
+    @POST
+    Single<List<GetMessage>> getAuthMessage(@Url String url, @Body GetMessageRequestModel requestId);
 }

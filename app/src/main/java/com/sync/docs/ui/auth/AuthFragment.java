@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.sync.docs.R;
 import com.sync.docs.data.network.model.auth.AuthRequest;
@@ -46,6 +47,13 @@ public class AuthFragment extends Fragment {
             if (databases != null) {
                 binding.databaseEditText.setText(databases.getDatabases().get(0).getDatabaseId());
                 authRequest.setTenantId(databases.getDatabases().get(0).getDatabaseId());
+            }
+        });
+        viewModel.getAuthMessages().observe(this, message -> {
+            if (message == null) {
+                Toast.makeText(getContext(), R.string.authorization_was_successful, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
     }

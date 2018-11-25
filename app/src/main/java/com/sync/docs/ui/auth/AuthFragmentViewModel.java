@@ -49,4 +49,8 @@ public class AuthFragmentViewModel extends ViewModel {
         messageRepository.onClear();
         authMessageRepository.onClear();
     }
+
+    MutableLiveData<String> getAuthMessages() {
+        return authMessageRepository.getAuthMessage();
+    }
 }
